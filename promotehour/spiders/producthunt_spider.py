@@ -6,7 +6,7 @@ from ..items import AppItem
 
 class ProductHuntSpider(Spider):
 	name = "producthunt"
-	allowed_domains = ["producthunt.com"]
+	allowed_urls = ["producthunt.com"]
 	start_urls = ["http://producthunt.com"]
 
 
@@ -19,6 +19,7 @@ class ProductHuntSpider(Spider):
 				item = AppItem()
 				item['source'] = 'Producthunt'
 				item['title'] = post.xpath('.//a[@class="post-item--text--name"]/text()').extract()[0]
+				print item["title"]
 				ref_link = post.xpath('.//a[@class="post-item--text--name"]/@href').extract()[0]
 				yield Request("https://producthunt.com/{}".format(ref_link), 
 				callback=self.parse_page_2, meta={'item': item})

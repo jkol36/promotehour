@@ -27,4 +27,4 @@ class PromotehourPipeline(object):
 
 	def close_spider(self, spider):
 		print "closing spider"
-		upload.upload_file(file_path="./shit.csv", file_name="shit.csv", mime_type="text/csv")
+		upload.upload_file()
