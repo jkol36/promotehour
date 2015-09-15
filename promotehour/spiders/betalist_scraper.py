@@ -28,5 +28,5 @@ class BetaListScraper(Spider):
 				item['website'] = "http://betalist.com" + ref_link + "/visit/"
 				print description
 				yield item
-				i +=1
+			i +=1
 			
