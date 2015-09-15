@@ -11,6 +11,7 @@ import upload
 class PromotehourPipeline(object):
 
 	def open_spider(self, spider):
+		print 'Opened spider {}'.format(spider)
 		with open('shit.csv', 'w') as csvfile:
 			writer = csv.writer(csvfile, lineterminator='\n')
 			writer.writerow(['URL', 'source', 'name'])
@@ -26,5 +27,5 @@ class PromotehourPipeline(object):
 		return item
 
 	def close_spider(self, spider):
-		print "closing spider"
-		upload.upload_file()
+		pass
+		# upload.upload_file()
