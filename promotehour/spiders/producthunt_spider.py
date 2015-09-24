@@ -2,6 +2,7 @@ from scrapy.spiders import Spider
 from scrapy import Selector
 from scrapy.http import Request
 from ..items import AppItem
+from datetime import datetime
 
 
 class ProductHuntSpider(Spider):
@@ -19,7 +20,9 @@ class ProductHuntSpider(Spider):
 				item = AppItem()
 				item['source'] = 'Producthunt'
 				item['title'] = post.xpath('.//a[@class="post-item--text--name"]/text()').extract()[0]
-				print item["title"]
+				print item['title']
+				item['mobile_checked'] = True
+				item['date_added'] = datetime.today()
 				ref_link = post.xpath('.//a[@class="post-item--text--name"]/@href').extract()[0]
 				yield Request("https://producthunt.com/{}".format(ref_link), 
 				callback=self.parse_page_2, meta={'item': item})

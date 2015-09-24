@@ -12,3 +12,5 @@ class AppItem(Item):
     title = Field()
     source = Field()
     website = Field()
+    mobile_checked = Field()
+    date_added = Field()

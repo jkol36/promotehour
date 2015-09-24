@@ -2,6 +2,7 @@ from scrapy.spiders import Spider
 from scrapy import Selector
 from scrapy.http import Request
 from ..items import AppItem
+from datetime import datetime
 
 
 
@@ -20,12 +21,13 @@ class BetaListScraper(Spider):
 			item = AppItem()
 			description = post.xpath("//a[@class='startupGridItem__pitch']/text()").extract()[i]
 			if "mobile" or "app" or "ios" or "android" in description.lower():
-				print "true"
 				title = post.xpath("//a[@class='startupGridItem__name']/text()").extract()[i]
 				ref_link = post.xpath("//div[@class='startupGridItem__image']//a/@href").extract()[i]
 				item['source'] = "betalist"
 				item["title"] = title
 				item['website'] = "http://betalist.com" + ref_link + "/visit/"
+				item['mobile_checked'] = True
+				item['date_added'] = datetime.today()
 				print description
 				yield item
 			i +=1

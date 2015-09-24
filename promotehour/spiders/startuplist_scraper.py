@@ -2,6 +2,7 @@ from scrapy.spiders import Spider
 from scrapy import Selector
 from scrapy.http import Request
 from ..items import AppItem
+from datetime import datetime
 
 
 
@@ -17,10 +18,12 @@ class StartupListScraper(Spider):
 		
 		for post in posts:
 			item = AppItem()
-			title = post.xpath("//div[@class='headline']//h3//a[@class='profile']/text()").extract()
+			title = post.xpath("//div[@class='headline']//h3//a[@class='profile']/text()")[0].extract()
 			item['title'] = title
 			item['source'] = "startupli.st"
 			ref_link = "http://startupli.st/{}".format(post.xpath("//div[@class='headline']//h3//a[@class='profile']/@href").extract()[0])
+			item['mobile_checked'] = False
+			item['date_added'] = datetime.today()
 			yield Request(ref_link, meta={"item": item}, callback=self.parse_page_2)
 
 	def parse_page_2(self, response):
